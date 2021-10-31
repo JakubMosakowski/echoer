@@ -1,4 +1,4 @@
-package com.jakmos.echoer
+package com.jakmos.echoer.presentation.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,9 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.jakmos.echoer.ui.theme.EchoerTheme
-import java.lang.Exception
+import com.jakmos.echoer.presentation.common.theme.EchoerTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +28,3 @@ fun Greeting(name: String) {
     Text(text = "Hello $name!")
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    EchoerTheme {
-        Greeting("Android")
-    }
-}

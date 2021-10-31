@@ -1,4 +1,4 @@
-package com.jakmos.echoer.ui.theme
+package com.jakmos.echoer.presentation.common.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
