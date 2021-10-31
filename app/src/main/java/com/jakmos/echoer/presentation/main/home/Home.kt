@@ -8,8 +8,8 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jakmos.echoer.presentation.main.home.HomeViewModel.HomeSideEffect
 import com.jakmos.echoer.presentation.main.home.HomeViewModel.HomeSideEffect.ShowSnack
@@ -32,8 +32,7 @@ fun Home(
     }
 
     Scaffold(
-        scaffoldState = scaffoldState,
-        backgroundColor = Color.White
+        scaffoldState = scaffoldState
     ) {
         ClickableText(
             text = AnnotatedString(state.toString()),
@@ -47,4 +46,10 @@ private suspend fun handleSideEffect(
     hostState: SnackbarHostState
 ) = when (sideEffect) {
     ShowSnack -> hostState.showSnackbar("Test snackbar")
+}
+
+@Preview
+@Composable
+fun HomePreview() {
+    Home(viewModel = HomeViewModel())
 }
