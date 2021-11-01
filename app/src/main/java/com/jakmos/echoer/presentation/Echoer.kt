@@ -1,9 +1,10 @@
 package com.jakmos.echoer.presentation
 
 import android.app.Application
-import com.jakmos.echoer.BuildConfig
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
+import com.jakmos.echoer.BuildConfig
 
 @HiltAndroidApp
 class MainApplication : Application() {
@@ -12,6 +13,7 @@ class MainApplication : Application() {
         super.onCreate()
 
         setupTimber()
+        setupCrashlytics()
     }
 
     private fun setupTimber() {
@@ -19,6 +21,11 @@ class MainApplication : Application() {
             Timber.plant(Timber.DebugTree())
         }
     }
+
+    private fun setupCrashlytics() =
+        FirebaseCrashlytics
+            .getInstance()
+            .setCrashlyticsCollectionEnabled(BuildConfig.ENABLE_CRASHLYTICS)
 
 }
 

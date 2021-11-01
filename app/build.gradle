@@ -52,6 +52,7 @@ android {
             resValue "string", "app_name", "Echoer Development"
             signingConfig = signingConfigs.debug
             buildConfigField("String", "SERVER_LOGGING_LEVEL", "\"BODY\"")
+            buildConfigField 'Boolean', 'ENABLE_CRASHLYTICS', 'false'
         }
         release {
             minifyEnabled = true
@@ -59,6 +60,7 @@ android {
             resValue "string", "app_name", "Echoer"
             signingConfig = signingConfigs.release
             buildConfigField("String", "SERVER_LOGGING_LEVEL", "\"NONE\"")
+            buildConfigField 'Boolean', 'ENABLE_CRASHLYTICS', 'true'
         }
     }
     compileOptions {
