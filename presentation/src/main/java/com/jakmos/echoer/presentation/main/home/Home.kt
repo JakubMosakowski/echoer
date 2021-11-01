@@ -10,7 +10,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.jakmos.echoer.presentation.main.home.HomeViewModel.HomeSideEffect
 import com.jakmos.echoer.presentation.main.home.HomeViewModel.HomeSideEffect.ShowSnack
 import kotlinx.coroutines.flow.collectLatest
@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun Home(
-    viewModel: HomeViewModel = viewModel(),
+    viewModel: HomeViewModel = hiltViewModel(),
     scaffoldState: ScaffoldState = rememberScaffoldState()
 ) {
     val state = viewModel.container.stateFlow.collectAsState().value
