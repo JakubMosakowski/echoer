@@ -1,4 +1,4 @@
-package com.jakmos.echoer.presentation.main.home
+package com.jakmos.echoer.presentation.main.home.dashboard
 
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Scaffold
@@ -12,17 +12,17 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jakmos.echoer.presentation.common.theme.EchoerTheme
-import com.jakmos.echoer.presentation.main.home.HomeViewModel.HomeSideEffect
-import com.jakmos.echoer.presentation.main.home.HomeViewModel.HomeSideEffect.ShowSnack
-import com.jakmos.echoer.presentation.main.home.HomeViewModel.HomeState
-import com.jakmos.echoer.presentation.main.home.HomeViewModel.HomeState.Loading
+import com.jakmos.echoer.presentation.main.home.dashboard.DashboardViewModel.DashboardSideEffect
+import com.jakmos.echoer.presentation.main.home.dashboard.DashboardViewModel.DashboardSideEffect.ShowSnack
+import com.jakmos.echoer.presentation.main.home.dashboard.DashboardViewModel.DashboardState
+import com.jakmos.echoer.presentation.main.home.dashboard.DashboardViewModel.DashboardState.Loading
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
 @Composable
-fun Home(
-    viewModel: HomeViewModel = hiltViewModel(),
+fun Dashboard(
+    viewModel: DashboardViewModel = hiltViewModel(),
     scaffoldState: ScaffoldState = rememberScaffoldState()
 ) {
     val state = viewModel.container.stateFlow.collectAsState().value
@@ -34,27 +34,27 @@ fun Home(
         }
     }
 
-    Home(
+    Dashboard(
         state,
-        viewModel::onClick,
-        scaffoldState
+        scaffoldState,
+        viewModel::onClick
     )
 }
 
 @Composable
-private fun Home(
-    state: HomeState,
-    onClick: () -> Unit = {},
-    scaffoldState: ScaffoldState = rememberScaffoldState()
+private fun Dashboard(
+    state: DashboardState,
+    scaffoldState: ScaffoldState = rememberScaffoldState(),
+    onClick: () -> Unit = {}
 ) = Scaffold(scaffoldState = scaffoldState) {
     ClickableText(
-        text = AnnotatedString(state.toString()),
+        text = AnnotatedString("Home Screen"),
         onClick = { onClick() }
     )
 }
 
 private suspend fun handleSideEffect(
-    sideEffect: HomeSideEffect,
+    sideEffect: DashboardSideEffect,
     hostState: SnackbarHostState
 ) = when (sideEffect) {
     ShowSnack -> hostState.showSnackbar("Test snackbar")
@@ -62,6 +62,6 @@ private suspend fun handleSideEffect(
 
 @Preview
 @Composable
-fun HomePreview() = EchoerTheme {
-    Home(Loading)
+fun DashboardPreview() = EchoerTheme {
+    Dashboard(Loading)
 }
