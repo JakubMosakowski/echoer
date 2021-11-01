@@ -6,4 +6,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Echoer"
-include ':app'
+include ':presentation'
+include ':domain'
+include ':data'
+include ':utility'

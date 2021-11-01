@@ -1,13 +1,17 @@
 package com.jakmos.echoer.presentation
 
 import android.app.Application
-import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.jakmos.echoer.BuildConfig
+import com.jakmos.echoer.utility.debug.CrashlyticsInitialiser
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
-import com.jakmos.echoer.BuildConfig
+import javax.inject.Inject
 
 @HiltAndroidApp
 class MainApplication : Application() {
+
+    @Inject
+    lateinit var crashlyticsInitialiser: CrashlyticsInitialiser
 
     override fun onCreate() {
         super.onCreate()
@@ -23,9 +27,7 @@ class MainApplication : Application() {
     }
 
     private fun setupCrashlytics() =
-        FirebaseCrashlytics
-            .getInstance()
-            .setCrashlyticsCollectionEnabled(BuildConfig.ENABLE_CRASHLYTICS)
+        crashlyticsInitialiser.initialize(BuildConfig.ENABLE_CRASHLYTICS)
 
 }
 

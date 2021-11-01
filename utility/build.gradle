@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id "kotlin-kapt"
+}
+
+android {
+
+    buildTypes {
+        debug {
+            minifyEnabled = false
+        }
+        release {
+            minifyEnabled = true
+            proguardFiles getDefaultProguardFile("proguard-android.txt"),
+                    rootProject.file("settings/proguard/proguard-rules.pro")
+        }
+    }
+
+    compileSdkVersion compile_sdk
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    // Core
+    api "androidx.core:core-ktx:$android_core_version"
+
+    // Firebase
+    implementation platform("com.google.firebase:firebase-bom:$firebase_version")
+    implementation 'com.google.firebase:firebase-crashlytics'
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+
+    // Kotlin
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    // Other
+    api "com.jakewharton.timber:timber:$timber_version"
+
+    // Test
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5_version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
+    testImplementation "io.mockk:mockk:$mockk_version"
+    testImplementation "io.kotest:kotest-assertions-core:$kotest_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+    testImplementation "androidx.arch.core:core-testing:$core_testing_version"
+    testImplementation "app.cash.turbine:turbine:$turbine_version"
+}

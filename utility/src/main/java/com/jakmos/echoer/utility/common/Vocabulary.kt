@@ -1,4 +1,4 @@
-package com.jakmos.echoer.domain.common
+package com.jakmos.echoer.utility.common
 
 @JvmInline
 value class Password(val value: String)
