@@ -1,27 +1,42 @@
 package com.jakmos.echoer.presentation.main.auth.signup
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.jakmos.echoer.R
+import com.jakmos.echoer.presentation.common.component.EchoerButton
+import com.jakmos.echoer.presentation.common.component.EchoerTextInput
+import com.jakmos.echoer.presentation.common.component.PasswordTextInput
 import com.jakmos.echoer.presentation.common.theme.EchoerTheme
 import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect
 import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect.OpenHome
 import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect.OpenSignIn
+import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect.ShowError
 import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpState
-import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpState.Initial
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -33,57 +48,113 @@ fun SignUp(
     openHome: () -> Unit,
     openSignIn: () -> Unit
 ) {
-    val state = viewModel.container.stateFlow.collectAsState().value
+    val state by viewModel.container.stateFlow.collectAsState()
     val sideEffectFlow = viewModel.container.sideEffectFlow
 
     LaunchedEffect(viewModel, scaffoldState.snackbarHostState) {
         launch {
-            sideEffectFlow.collectLatest { handleSideEffect(it, openHome, openSignIn) }
+            handleSideEffect(
+                sideEffectFlow,
+                scaffoldState.snackbarHostState,
+                openHome,
+                openSignIn
+            )
         }
     }
 
     SignUp(
         state,
         scaffoldState,
-        viewModel::onSignInClicked,
-        viewModel::onHomeClicked
+        onSignInClicked = viewModel::onSignInClicked,
+        onSubmitClicked = viewModel::onSubmitClicked,
+        onEmailChanged = viewModel::onEmailChanged,
+        onPasswordChanged = viewModel::onPasswordChanged,
+        onConfirmPasswordChanged = viewModel::onConfirmPasswordChanged,
     )
 }
 
 @Composable
 private fun SignUp(
-    state: SignUpState = Initial,
+    state: SignUpState,
     scaffoldState: ScaffoldState = rememberScaffoldState(),
     onSignInClicked: () -> Unit = {},
-    onHomeClicked: () -> Unit = {}
+    onSubmitClicked: () -> Unit = {},
+    onEmailChanged: (String) -> Unit = {},
+    onPasswordChanged: (String) -> Unit = {},
+    onConfirmPasswordChanged: (String) -> Unit = {},
 ) = Scaffold(scaffoldState = scaffoldState) {
-    Column() {
-        Text("Sign up screen")
-        Spacer(modifier = Modifier.height(20.dp))
-        ClickableText(
-            text = AnnotatedString("To sign in"),
-            onClick = { onSignInClicked() }
+    Column(
+        horizontalAlignment = CenterHorizontally,
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .padding(24.dp)
+    ) {
+        Text(stringResource(R.string.signUp_title), modifier = Modifier.padding(12.dp))
+        Text(
+            stringResource(R.string.signUp_subtitle),
+            modifier = Modifier
+                .padding(12.dp)
+                .align(CenterHorizontally)
         )
-        Spacer(modifier = Modifier.height(5.dp))
-        ClickableText(
-            text = AnnotatedString("To home"),
-            onClick = { onHomeClicked() }
+
+        EchoerTextInput(
+            onValueChange = onEmailChanged,
+            label = { Text(stringResource(R.string.signUp_email_hint)) }
         )
+        PasswordTextInput(
+            onValueChange = onPasswordChanged,
+            label = { Text(stringResource(R.string.signUp_password_hint)) }
+        )
+        PasswordTextInput(
+            onValueChange = onConfirmPasswordChanged,
+            label = { Text(stringResource(R.string.signUp_confirm_password_hint)) }
+        )
+        EchoerButton(
+            text = stringResource(R.string.common_submit),
+            onClick = onSubmitClicked,
+            enabled = state.isButtonEnabled
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        TextButton(onClick = onSignInClicked) {
+            Text(stringResource(R.string.signUp_link_to_sign_in))
+        }
+    }
+
+    if (state.isLoading) Box(
+        modifier = Modifier
+            .fillMaxHeight()
+            .fillMaxWidth()
+    ) {
+        CircularProgressIndicator(modifier = Modifier.align(Center))
     }
 }
 
-private fun handleSideEffect(
-    sideEffect: SignUpSideEffect,
+private suspend fun handleSideEffect(
+    sideEffectFlow: Flow<SignUpSideEffect>,
+    hostState: SnackbarHostState,
     openHome: () -> Unit,
     openSignIn: () -> Unit,
-) = when (sideEffect) {
-    OpenHome -> openHome()
-    OpenSignIn -> openSignIn()
+) = sideEffectFlow.collectLatest { sideEffect ->
+    when (sideEffect) {
+        OpenHome -> openHome()
+        OpenSignIn -> openSignIn()
+        is ShowError -> hostState.showSnackbar(sideEffect.errorText)
+    }
 }
 
-
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun SignUpPreview() = EchoerTheme {
-    SignUp(Initial)
+fun SignUpPreview(@PreviewParameter(SignUpStateProvider::class) state: SignUpState) {
+    EchoerTheme { SignUp(state) }
+}
+
+class SignUpStateProvider : PreviewParameterProvider<SignUpState> {
+    override val values: Sequence<SignUpState> = sequenceOf(
+        SignUpState(isButtonEnabled = false, isLoading = false),
+        SignUpState(isButtonEnabled = true, isLoading = false),
+        SignUpState(isButtonEnabled = false, isLoading = true)
+    )
 }
