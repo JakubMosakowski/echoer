@@ -1,4 +1,4 @@
-package com.jakmos.echoer.presentation
+package com.jakmos.echoer.presentation.main.application
 
 import android.app.Application
 import com.jakmos.echoer.BuildConfig
