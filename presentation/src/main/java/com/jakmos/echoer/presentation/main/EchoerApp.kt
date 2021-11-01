@@ -8,7 +8,6 @@ import com.jakmos.echoer.presentation.common.theme.EchoerTheme
 fun EchoerApp() {
 
     EchoerTheme {
-
         val navController = rememberNavController()
         NavGraph(navController)
     }
