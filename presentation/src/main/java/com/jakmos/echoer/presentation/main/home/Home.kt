@@ -11,8 +11,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.jakmos.echoer.presentation.common.theme.EchoerTheme
 import com.jakmos.echoer.presentation.main.home.HomeViewModel.HomeSideEffect
 import com.jakmos.echoer.presentation.main.home.HomeViewModel.HomeSideEffect.ShowSnack
+import com.jakmos.echoer.presentation.main.home.HomeViewModel.HomeState
+import com.jakmos.echoer.presentation.main.home.HomeViewModel.HomeState.Loading
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -31,14 +34,23 @@ fun Home(
         }
     }
 
-    Scaffold(
-        scaffoldState = scaffoldState
-    ) {
-        ClickableText(
-            text = AnnotatedString(state.toString()),
-            onClick = { viewModel.onClick() }
-        )
-    }
+    Home(
+        state,
+        viewModel::onClick,
+        scaffoldState
+    )
+}
+
+@Composable
+private fun Home(
+    state: HomeState,
+    onClick: () -> Unit = {},
+    scaffoldState: ScaffoldState = rememberScaffoldState()
+) = Scaffold(scaffoldState = scaffoldState) {
+    ClickableText(
+        text = AnnotatedString(state.toString()),
+        onClick = { onClick() }
+    )
 }
 
 private suspend fun handleSideEffect(
@@ -50,6 +62,6 @@ private suspend fun handleSideEffect(
 
 @Preview
 @Composable
-fun HomePreview() {
-    Home(viewModel = HomeViewModel())
+fun HomePreview() = EchoerTheme {
+    Home(Loading)
 }
