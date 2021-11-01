@@ -1,4 +1,4 @@
-package com.jakmos.echoer.presentation.main.auth.signup
+package com.jakmos.echoer.presentation.main.auth.resetpassword
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,20 +17,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jakmos.echoer.presentation.common.theme.EchoerTheme
-import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect
-import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect.OpenHome
-import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect.OpenSignIn
-import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpState
-import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpState.Initial
+import com.jakmos.echoer.presentation.main.auth.resetpassword.ResetPasswordViewModel.ResetPasswordSideEffect
+import com.jakmos.echoer.presentation.main.auth.resetpassword.ResetPasswordViewModel.ResetPasswordSideEffect.OpenSignIn
+import com.jakmos.echoer.presentation.main.auth.resetpassword.ResetPasswordViewModel.ResetPasswordState
+import com.jakmos.echoer.presentation.main.auth.resetpassword.ResetPasswordViewModel.ResetPasswordState.Initial
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
 @Composable
-fun SignUp(
-    viewModel: SignUpViewModel = hiltViewModel(),
+fun ResetPassword(
+    viewModel: ResetPasswordViewModel = hiltViewModel(),
     scaffoldState: ScaffoldState = rememberScaffoldState(),
-    openHome: () -> Unit,
     openSignIn: () -> Unit
 ) {
     val state = viewModel.container.stateFlow.collectAsState().value
@@ -38,52 +36,43 @@ fun SignUp(
 
     LaunchedEffect(viewModel, scaffoldState.snackbarHostState) {
         launch {
-            sideEffectFlow.collectLatest { handleSideEffect(it, openHome, openSignIn) }
+            sideEffectFlow.collectLatest { handleSideEffect(it, openSignIn) }
         }
     }
 
-    SignUp(
+    ResetPassword(
         state,
         scaffoldState,
-        viewModel::onSignInClicked,
-        viewModel::onHomeClicked
+        viewModel::onSignInClicked
     )
 }
 
 @Composable
-private fun SignUp(
-    state: SignUpState = Initial,
+private fun ResetPassword(
+    state: ResetPasswordState = Initial,
     scaffoldState: ScaffoldState = rememberScaffoldState(),
-    onSignInClicked: () -> Unit = {},
-    onHomeClicked: () -> Unit = {}
+    onSignInClicked: () -> Unit = {}
 ) = Scaffold(scaffoldState = scaffoldState) {
     Column() {
-        Text("Sign up screen")
+        Text("Reset password screen")
         Spacer(modifier = Modifier.height(20.dp))
         ClickableText(
             text = AnnotatedString("To sign in"),
             onClick = { onSignInClicked() }
         )
-        Spacer(modifier = Modifier.height(5.dp))
-        ClickableText(
-            text = AnnotatedString("To home"),
-            onClick = { onHomeClicked() }
-        )
     }
 }
 
 private fun handleSideEffect(
-    sideEffect: SignUpSideEffect,
-    openHome: () -> Unit,
+    sideEffect: ResetPasswordSideEffect,
     openSignIn: () -> Unit,
 ) = when (sideEffect) {
-    OpenHome -> openHome()
     OpenSignIn -> openSignIn()
 }
 
 
 @Preview
 @Composable
-fun SignUpPreview() = EchoerTheme {
-    SignUp(Initial)
+fun ResetPasswordPreview() = EchoerTheme {
+    ResetPassword(Initial)
 }

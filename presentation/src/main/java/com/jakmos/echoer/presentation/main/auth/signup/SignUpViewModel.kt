@@ -3,6 +3,7 @@ package com.jakmos.echoer.presentation.main.auth.signup
 import com.jakmos.echoer.presentation.base.BaseViewModel
 import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect
 import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect.OpenHome
+import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect.OpenSignIn
 import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpState
 import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpState.Initial
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,9 @@ class SignUpViewModel @Inject constructor() : BaseViewModel<SignUpState, SignUpS
 
     override val container: Container<SignUpState, SignUpSideEffect> = container(Initial)
 
-    fun onTextClicked() = intent { postSideEffect(OpenHome) }
+    fun onHomeClicked() = intent { postSideEffect(OpenHome) }
+
+    fun onSignInClicked() = intent { postSideEffect(OpenSignIn) }
 
     sealed class SignUpState {
         object Initial : SignUpState()
@@ -27,5 +30,6 @@ class SignUpViewModel @Inject constructor() : BaseViewModel<SignUpState, SignUpS
 
     sealed class SignUpSideEffect {
         object OpenHome : SignUpSideEffect()
+        object OpenSignIn : SignUpSideEffect()
     }
 }
