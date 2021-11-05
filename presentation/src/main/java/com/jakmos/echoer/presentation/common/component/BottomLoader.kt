@@ -1,10 +1,13 @@
 package com.jakmos.echoer.presentation.common.component
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material.CircularProgressIndicator
@@ -20,12 +23,16 @@ import com.jakmos.echoer.presentation.common.theme.colorPrimary
 @Composable
 fun BottomLoader(
     isLoading: Boolean
-) = AnimatedVisibility(isLoading) {
+) = AnimatedVisibility(
+    isLoading,
+    enter = slideInVertically({ 100.dp.value.toInt() }),
+    exit = slideOutVertically({ 100.dp.value.toInt() })
+) {
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
         HillBackground {
             CircularProgressIndicator(
                 color = colorAccent,
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.size(32.dp)
             )
         }
     }
@@ -39,7 +46,10 @@ private fun HillBackground(content: @Composable () -> Unit) = Surface(
         .width(70.dp)
         .height(50.dp)
 ) {
-    Box(Modifier.padding(4.dp)) { content() }
+    Box(
+        Modifier.padding(6.dp),
+        contentAlignment = Alignment.Center
+    ) { content() }
 }
 
 private val HillShape = GenericShape { size, _ ->
@@ -48,10 +58,10 @@ private val HillShape = GenericShape { size, _ ->
     moveTo(0f, size.height)
 
     // Draw first half of the shape.
-    quadraticBezierTo(size.width * 0.05f, size.height * 0.01f, size.width / 2, 0f)
+    quadraticBezierTo(size.width * 0.1f, size.height * 0.01f, size.width / 2, 0f)
 
     // Draw second half of the shape.
-    quadraticBezierTo(size.width * 0.95f, size.height * 0.01f, size.width, size.height)
+    quadraticBezierTo(size.width * 0.9f, size.height * 0.01f, size.width, size.height)
 }
 
 @Composable
