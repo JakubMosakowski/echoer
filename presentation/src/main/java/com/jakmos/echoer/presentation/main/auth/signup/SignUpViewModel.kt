@@ -2,12 +2,15 @@ package com.jakmos.echoer.presentation.main.auth.signup
 
 import android.content.res.Resources
 import android.util.Patterns
+import androidx.lifecycle.viewModelScope
 import com.jakmos.echoer.domain.auth.SignUpUseCase
 import com.jakmos.echoer.presentation.base.BaseViewModel
 import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect
 import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect.OpenSignIn
 import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -55,19 +58,21 @@ class SignUpViewModel @Inject constructor(
         this.confirmPassword = confirmPassword
     }
 
-    fun onSubmitClicked() {
+    fun onSubmitClicked() = viewModelScope.launch {
+        setLoading(true)
+        delay(3000)
         Timber.v("On Submit clicked $email $password $confirmPassword")
+        setLoading(false)
     }
 
-    private fun validate() {
-        val isButtonEnabled = isEmailValid() && isPasswordValid()
+    private fun setLoading(isLoading: Boolean) =
+        intent { reduce { state.copy(isLoading = isLoading) } }
 
-        intent {
-            reduce {
-                state.copy(isButtonEnabled = isButtonEnabled)
-            }
-        }
-    }
+    private fun enableButton(isEnabled: Boolean) =
+        intent { reduce { state.copy(isButtonEnabled = isEnabled) } }
+
+    private fun validate() =
+        enableButton(isEmailValid() && isPasswordValid())
 
     private fun isEmailValid(): Boolean =
         Patterns.EMAIL_ADDRESS.matcher(email).matches()

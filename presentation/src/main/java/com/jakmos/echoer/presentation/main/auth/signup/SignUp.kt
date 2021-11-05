@@ -1,12 +1,10 @@
 package com.jakmos.echoer.presentation.main.auth.signup
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarHostState
@@ -17,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,6 +24,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jakmos.echoer.R
+import com.jakmos.echoer.presentation.common.component.BottomLoader
 import com.jakmos.echoer.presentation.common.component.EchoerButton
 import com.jakmos.echoer.presentation.common.component.EchoerTextInput
 import com.jakmos.echoer.presentation.common.component.PasswordTextInput
@@ -123,13 +121,7 @@ private fun SignUp(
         }
     }
 
-    if (state.isLoading) Box(
-        modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth()
-    ) {
-        CircularProgressIndicator(modifier = Modifier.align(Center))
-    }
+    BottomLoader(state.isLoading)
 }
 
 private suspend fun handleSideEffect(
