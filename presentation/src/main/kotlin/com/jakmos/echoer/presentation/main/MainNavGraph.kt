@@ -8,12 +8,6 @@ import com.jakmos.echoer.presentation.main.MainDestinations.AUTH_ROUTE
 import com.jakmos.echoer.presentation.main.auth.addAuthGraph
 import com.jakmos.echoer.presentation.main.home.addHomeGraph
 
-
-enum class MainDestinations {
-    HOME_ROUTE,
-    AUTH_ROUTE
-}
-
 @Composable
 fun NavGraph(
     navController: NavHostController = rememberNavController()
@@ -23,4 +17,9 @@ fun NavGraph(
 ) {
     addAuthGraph(navController)
     addHomeGraph()
+}
+
+enum class MainDestinations {
+    HOME_ROUTE,
+    AUTH_ROUTE
 }

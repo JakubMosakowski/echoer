@@ -7,6 +7,7 @@ object Versions {
     const val coreTestingVersion = "2.1.0"
     const val coroutinesVersion = "1.6.0"
     const val crashlyticsGradleVersion = "2.8.0"
+    const val detektVersion = "1.19.0"
     const val firebaseVersion = "29.0.0"
     const val fragmentVersion = "1.3.6"
     const val googleServicesVersion = "4.3.10"
@@ -24,6 +25,7 @@ object Versions {
     const val retrofitVersion = "2.9.0"
     const val timberVersion = "5.0.1"
     const val turbineVersion = "0.7.0"
+
     const val compileSdk = 31
     const val minSdk = 24
     const val targetSdk = 31

@@ -15,11 +15,15 @@ buildscript {
 
 plugins {
     id("org.jetbrains.kotlinx.kover") version Versions.koverVersion
+    id("io.gitlab.arturbosch.detekt") version Versions.detektVersion
 }
 
 allprojects {
     repositories {
         google()
         mavenCentral()
+    }
+    apply {
+        from("$rootDir/detekt/detekt.gradle")
     }
 }
