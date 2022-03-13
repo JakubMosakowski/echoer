@@ -25,8 +25,8 @@ fun BottomLoader(
     isLoading: Boolean
 ) = AnimatedVisibility(
     isLoading,
-    enter = slideInVertically({ 100.dp.value.toInt() }),
-    exit = slideOutVertically({ 100.dp.value.toInt() })
+    enter = slideInVertically(initialOffsetY = { 100.dp.value.toInt() }),
+    exit = slideOutVertically(targetOffsetY = { 100.dp.value.toInt() })
 ) {
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
         HillBackground {
