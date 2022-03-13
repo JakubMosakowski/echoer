@@ -9,7 +9,6 @@ object Versions {
     const val crashlyticsGradleVersion = "2.8.0"
     const val firebaseVersion = "29.0.0"
     const val fragmentVersion = "1.3.6"
-    const val glideVersion = "4.12.0"
     const val googleServicesVersion = "4.3.10"
     const val gradleVersion = "7.1.2"
     const val hiltVersion = "2.40"
