@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -27,7 +28,7 @@ android {
 
 dependencies {
 
-    api(project(":utility"))
+    api(project(":domain"))
 
     // Firebase
     implementation("com.google.firebase:firebase-analytics")
@@ -39,6 +40,8 @@ dependencies {
 
     // Hilt
     implementation("com.google.dagger:hilt-android:${Versions.hiltVersion}")
+    kapt("com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}")
+    kapt("com.google.dagger:hilt-compiler:${Versions.hiltVersion}")
 
     // Moshi
     implementation("com.squareup.moshi:moshi:${Versions.moshiVersion}")

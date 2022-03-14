@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.jakmos.echoer.R
+import com.jakmos.echoer.presentation.R
 import com.jakmos.echoer.presentation.common.component.BottomLoader
 import com.jakmos.echoer.presentation.common.component.EchoerButton
 import com.jakmos.echoer.presentation.common.component.EchoerTextInput

@@ -1,4 +1,4 @@
-package com.jakmos.echoer.presentation.main.application
+package com.jakmos.app
 
 import android.content.Context
 import android.content.res.Resources

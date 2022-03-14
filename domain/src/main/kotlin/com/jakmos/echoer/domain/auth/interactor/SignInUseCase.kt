@@ -1,8 +1,8 @@
-package com.jakmos.echoer.domain.auth
+package com.jakmos.echoer.domain.auth.interactor
 
-import com.jakmos.echoer.data.auth.AuthRepository
-import com.jakmos.echoer.utility.common.Email
-import com.jakmos.echoer.utility.common.Password
+import com.jakmos.echoer.domain.auth.AuthRepository
+import com.jakmos.echoer.domain.common.Email
+import com.jakmos.echoer.domain.common.Password
 import javax.inject.Inject
 
 class SignInUseCase @Inject constructor(

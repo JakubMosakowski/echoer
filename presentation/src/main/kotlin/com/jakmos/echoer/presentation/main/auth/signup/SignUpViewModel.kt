@@ -3,7 +3,7 @@ package com.jakmos.echoer.presentation.main.auth.signup
 import android.content.res.Resources
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
-import com.jakmos.echoer.domain.auth.SignUpUseCase
+import com.jakmos.echoer.domain.auth.interactor.SignUpUseCase
 import com.jakmos.echoer.presentation.base.BaseViewModel
 import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect
 import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect.OpenSignIn
