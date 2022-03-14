@@ -19,7 +19,6 @@ import com.jakmos.echoer.presentation.main.home.dashboard.DashboardViewModel.Das
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-
 @Composable
 fun Dashboard(
     viewModel: DashboardViewModel = hiltViewModel(),

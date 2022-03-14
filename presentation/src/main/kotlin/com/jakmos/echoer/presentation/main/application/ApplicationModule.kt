@@ -15,5 +15,4 @@ class ApplicationModule {
     @Provides
     internal fun provideApplicationResources(@ApplicationContext context: Context): Resources =
         context.resources
-
 }

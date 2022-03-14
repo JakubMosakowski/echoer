@@ -24,7 +24,6 @@ import com.jakmos.echoer.presentation.main.auth.resetpassword.ResetPasswordViewM
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-
 @Composable
 fun ResetPassword(
     viewModel: ResetPasswordViewModel = hiltViewModel(),
@@ -69,7 +68,6 @@ private fun handleSideEffect(
 ) = when (sideEffect) {
     OpenSignIn -> openSignIn()
 }
-
 
 @Preview
 @Composable

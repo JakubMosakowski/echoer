@@ -12,4 +12,3 @@ class SignUpUseCase @Inject constructor(
     suspend operator fun invoke(email: Email, password: Password) =
         repository.signUp(email, password)
 }
-

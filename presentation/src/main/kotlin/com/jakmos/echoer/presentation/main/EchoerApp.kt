@@ -6,7 +6,6 @@ import com.jakmos.echoer.presentation.common.theme.EchoerTheme
 
 @Composable
 fun EchoerApp() {
-
     EchoerTheme {
         val navController = rememberNavController()
         NavGraph(navController)

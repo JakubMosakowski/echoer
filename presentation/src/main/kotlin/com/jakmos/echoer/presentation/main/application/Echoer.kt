@@ -28,6 +28,4 @@ class Echoer : Application() {
 
     private fun setupCrashlytics() =
         crashlyticsInitializer.initialize(BuildConfig.ENABLE_CRASHLYTICS)
-
 }
-

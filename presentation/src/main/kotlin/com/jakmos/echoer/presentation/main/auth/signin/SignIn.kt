@@ -26,7 +26,6 @@ import com.jakmos.echoer.presentation.main.auth.signin.SignInViewModel.SignInSta
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-
 @Composable
 fun SignIn(
     viewModel: SignInViewModel = hiltViewModel(),
@@ -98,7 +97,6 @@ private fun handleSideEffect(
     OpenSignUp -> openSignUp()
     OpenResetPassword -> openResetPassword()
 }
-
 
 @Preview
 @Composable

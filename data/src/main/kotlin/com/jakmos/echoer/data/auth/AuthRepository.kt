@@ -20,6 +20,4 @@ class AuthRepository @Inject constructor() {
         val result = auth.signInWithEmailAndPassword(email.value, password.value).await()
         Timber.v("User logged in successfully: ${result.user}")
     }
-
-
 }

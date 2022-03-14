@@ -51,14 +51,16 @@ fun PasswordTextInput(
     modifier: Modifier = Modifier,
     label: @Composable (() -> Unit)? = null
 ) {
-
     val passwordVisibility = remember { mutableStateOf(false) }
 
     EchoerTextInput(
         initialValue = initialValue,
         trailingIcon = { PasswordVisibilityIcon(passwordVisibility) },
-        visualTransformation = if (passwordVisibility.value) VisualTransformation.None else
-            PasswordVisualTransformation(),
+        visualTransformation = if (passwordVisibility.value) {
+            VisualTransformation.None
+        } else {
+            PasswordVisualTransformation()
+        },
         onValueChange = onValueChange,
         modifier = modifier,
         label = label
@@ -67,9 +69,11 @@ fun PasswordTextInput(
 
 @Composable
 fun PasswordVisibilityIcon(passwordVisibility: MutableState<Boolean>) {
-    val image = if (passwordVisibility.value)
+    val image = if (passwordVisibility.value) {
         Icons.Filled.Visibility
-    else Icons.Filled.VisibilityOff
+    } else {
+        Icons.Filled.VisibilityOff
+    }
 
     IconButton(onClick = { passwordVisibility.value = !passwordVisibility.value }) {
         Icon(imageVector = image, "")

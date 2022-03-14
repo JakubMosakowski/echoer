@@ -28,8 +28,12 @@ android {
 dependencies {
 
     api(project(":data"))
+    api(project(":utility"))
 
     // Hilt
     implementation("com.google.dagger:hilt-android:${Versions.hiltVersion}")
+
+    // Detekt
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detektVersion}")
 }
 
