@@ -32,7 +32,4 @@ dependencies {
 
     // Orbit
     implementation("org.orbit-mvi:orbit-viewmodel:${Versions.orbitVersion}")
-
-    // Detekt
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detektVersion}")
 }

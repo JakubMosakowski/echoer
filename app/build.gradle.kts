@@ -86,7 +86,4 @@ dependencies {
     implementation("com.google.dagger:hilt-android:${Versions.hiltVersion}")
     kapt("com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}")
     kapt("com.google.dagger:hilt-compiler:${Versions.hiltVersion}")
-
-    // Detekt
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detektVersion}")
 }

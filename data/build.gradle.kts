@@ -23,7 +23,4 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}")
     implementation("com.squareup.retrofit2:converter-moshi:${Versions.retrofitVersion}")
     implementation("com.squareup.okhttp3:logging-interceptor:${Versions.okhttpLoggingInterceptorVersion}")
-
-    // Detekt
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detektVersion}")
 }

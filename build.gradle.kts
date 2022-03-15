@@ -24,4 +24,10 @@ allprojects {
     apply {
         from("$rootDir/detekt/detekt.gradle")
     }
+
+    dependencies {
+
+        // Detekt
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detektVersion}")
+    }
 }
