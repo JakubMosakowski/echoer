@@ -3,12 +3,6 @@ buildscript {
         google()
         mavenCentral()
     }
-    dependencies {
-        classpath(Classpaths.hilt)
-        classpath(Classpaths.crashlytics)
-        classpath(Classpaths.googlePlayServices)
-        classpath(Classpaths.junit)
-    }
 }
 
 plugins {
