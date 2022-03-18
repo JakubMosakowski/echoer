@@ -2,7 +2,7 @@ package com.jakmos.app
 
 import android.app.Application
 import com.jakmos.echoer.BuildConfig
-import com.jakmos.echoer.utility.debug.CrashlyticsInitializer
+import com.jakmos.echoer.utility.debug.crashlytics.CrashlyticsInitializer
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import javax.inject.Inject
