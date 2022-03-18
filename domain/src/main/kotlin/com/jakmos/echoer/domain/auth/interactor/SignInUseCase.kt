@@ -9,6 +9,6 @@ class SignInUseCase @Inject constructor(
     private val repository: AuthRepository
 ) {
 
-    suspend operator fun invoke(email: Email, password: Password) =
-        repository.signIn(email, password)
+    suspend operator fun invoke(email: String, password: String) =
+        repository.signIn(Email(email), Password(password))
 }
