@@ -1,4 +1,4 @@
-package com.jakmos.echoer.presentation.main.auth.signup
+package com.jakmos.echoer.presentation.main.auth.signup.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,12 +28,14 @@ import com.jakmos.echoer.presentation.common.component.BottomLoader
 import com.jakmos.echoer.presentation.common.component.EchoerButton
 import com.jakmos.echoer.presentation.common.component.EchoerTextInput
 import com.jakmos.echoer.presentation.common.component.PasswordTextInput
+import com.jakmos.echoer.presentation.common.component.TransparentProgress
 import com.jakmos.echoer.presentation.common.theme.EchoerTheme
-import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect
-import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect.OpenHome
-import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect.OpenSignIn
-import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpSideEffect.ShowError
-import com.jakmos.echoer.presentation.main.auth.signup.SignUpViewModel.SignUpState
+import com.jakmos.echoer.presentation.main.auth.signup.state.SignUpSideEffect
+import com.jakmos.echoer.presentation.main.auth.signup.state.SignUpSideEffect.OpenHome
+import com.jakmos.echoer.presentation.main.auth.signup.state.SignUpSideEffect.OpenSignIn
+import com.jakmos.echoer.presentation.main.auth.signup.state.SignUpSideEffect.ShowError
+import com.jakmos.echoer.presentation.main.auth.signup.state.SignUpState
+import com.jakmos.echoer.presentation.main.auth.signup.viewmodel.SignUpViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -45,8 +47,8 @@ fun SignUp(
     openHome: () -> Unit,
     openSignIn: () -> Unit
 ) {
-    val state by viewModel.container.stateFlow.collectAsState()
-    val sideEffectFlow = viewModel.container.sideEffectFlow
+    val state by viewModel.state.collectAsState()
+    val sideEffectFlow = viewModel.sideEffect
 
     LaunchedEffect(viewModel, scaffoldState.snackbarHostState) {
         launch {
@@ -121,6 +123,7 @@ private fun SignUp(
     }
 
     BottomLoader(state.isLoading)
+    if (state.isLoading) TransparentProgress()
 }
 
 private suspend fun handleSideEffect(
