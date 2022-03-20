@@ -1,6 +1,6 @@
 package com.jakmos.echoer.presentation.main.auth.signin
 
-import com.jakmos.echoer.presentation.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 import com.jakmos.echoer.presentation.main.auth.signin.SignInViewModel.SignInSideEffect
 import com.jakmos.echoer.presentation.main.auth.signin.SignInViewModel.SignInSideEffect.OpenHome
 import com.jakmos.echoer.presentation.main.auth.signin.SignInViewModel.SignInSideEffect.OpenResetPassword
@@ -9,13 +9,15 @@ import com.jakmos.echoer.presentation.main.auth.signin.SignInViewModel.SignInSta
 import com.jakmos.echoer.presentation.main.auth.signin.SignInViewModel.SignInState.Initial
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.Container
+import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor() : BaseViewModel<SignInState, SignInSideEffect>() {
+class SignInViewModel @Inject constructor() :
+    ContainerHost<SignInState, SignInSideEffect>, ViewModel() {
 
     override val container: Container<SignInState, SignInSideEffect> = container(Initial)
 
