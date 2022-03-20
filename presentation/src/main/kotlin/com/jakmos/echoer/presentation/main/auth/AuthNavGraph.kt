@@ -11,7 +11,7 @@ import com.jakmos.echoer.presentation.main.auth.AuthDestinations.SIGN_IN_ROUTE
 import com.jakmos.echoer.presentation.main.auth.AuthDestinations.SIGN_UP_ROUTE
 import com.jakmos.echoer.presentation.main.auth.resetpassword.ResetPassword
 import com.jakmos.echoer.presentation.main.auth.signin.SignIn
-import com.jakmos.echoer.presentation.main.auth.signup.SignUp
+import com.jakmos.echoer.presentation.main.auth.signup.view.SignUp
 import com.jakmos.echoer.presentation.main.home.addHomeGraph
 
 fun NavGraphBuilder.addAuthGraph(navController: NavController) = navigation(
