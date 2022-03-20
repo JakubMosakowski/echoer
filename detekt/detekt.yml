@@ -486,7 +486,7 @@ style:
     active: true
     ignoreOverridableFunction: true
     excludedFunctions: 'describeContents'
-    ignoreAnnotated: [ 'dagger.Provides' ]
+    ignoreAnnotated: [ 'Provides' ]
   LibraryCodeMustSpecifyReturnType:
     active: true
     excludes: [ '**/di/**' ]
