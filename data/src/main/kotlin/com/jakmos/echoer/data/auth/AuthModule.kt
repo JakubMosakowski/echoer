@@ -1,7 +1,9 @@
 package com.jakmos.echoer.data.auth
 
 import com.google.firebase.auth.FirebaseAuth
+import com.jakmos.echoer.data.auth.validate.EmailValidatorImpl
 import com.jakmos.echoer.domain.auth.AuthRepository
+import com.jakmos.echoer.domain.auth.validate.EmailValidator
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -16,6 +18,11 @@ abstract class AuthModule {
     abstract fun bindAuthRepository(
         repository: AuthRepositoryImpl
     ): AuthRepository
+
+    @Binds
+    abstract fun bindEmailValidator(
+        validator: EmailValidatorImpl
+    ): EmailValidator
 
     companion object {
 
