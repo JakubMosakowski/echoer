@@ -8,6 +8,14 @@ plugins {
 // TODO some methods here are marked incubating. Find out how to resolve that.
 android {
 
+    defaultConfig {
+        compileSdk = Versions.compileSdk
+        minSdk = Versions.minSdk
+        targetSdk = Versions.targetSdk
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
     buildTypes {
         debug {
             isMinifyEnabled = false
