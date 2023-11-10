@@ -1,10 +1,12 @@
 *.iml
 .gradle
+build
 /local.properties
 /.idea/*
 .DS_Store
-/build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+settings/keystore/keystore.properties
+settings/keystore/release.jks
