@@ -1,0 +1,12 @@
+<resources>
+    <string name="common_submit">Submit</string>
+
+    <string name="signUp_title">Register to the app</string>
+    <string name="signUp_subtitle">In order to save your progress, register to the app.</string>
+    <string name="signUp_email_hint">Email</string>
+    <string name="signUp_password_hint">Password</string>
+    <string name="signUp_confirm_password_hint">Confirm password</string>
+    <string name="signUp_password_help">Password needs to be at least 8 characters long</string>
+    <string name="signUp_link_to_sign_in">Have an account already? Sign in</string>
+
+</resources>
